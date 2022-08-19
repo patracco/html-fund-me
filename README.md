@@ -1,8 +1,3 @@
-# html-fund-me-fcc
-
-*[⌨️ (12:32:57) Lesson 8: HTML / Javascript Fund Me (Full Stack / Front End)](https://www.youtube.com/watch?v=gyMwXuJrbJQ&t=45177s)*
-
-
 This is a minimalistic example what you can find in the [metamask docs](https://docs.metamask.io/guide/create-dapp.html#basic-action-part-1).
 
 # Requirements
@@ -50,7 +45,7 @@ Optionally:
 If you'd like to run with prettier formatting, or don't have a way to run your file in the browser, run:
 ```
 yarn
-yarn http-server
+yarn http-server or use the Go Live button in VS Code
 ```
 
 And you should see a small button that says "connect".
@@ -68,8 +63,8 @@ Make sure you have the following installed:
 1. You'll need to open up a second terminal and run:
 
 ```
-git clone https://github.com/PatrickAlphaC/hardhat-fund-me-fcc
-cd hardhat-fund-me-fcc
+git clone https://github.com/patracco/hardhat-fund-me.git
+cd hardhat-fund-me
 yarn
 yarn hardhat node
 ```
@@ -91,13 +86,18 @@ Additionally, add your localhost with chainid 31337 to your metamask.
 
 5. Reserve the front end with `yarn http-server`, input an amount in the text box, and hit `fund` button after connecting
 
-# Thank you!
 
-If you appreciated this, feel free to follow me or donate!
+## Notes
+When building dApps, you usually have 2 repos
+- One for the smart contracts
+- One for the front end/website
 
-ETH/Polygon/Avalanche/etc Address: 0x9680201d9c93d65a3603d2088d125e955c73BD65
+Full stack ^ Smart Contracts (backend) + frontend
 
-[![Patrick Collins Twitter](https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/PatrickAlphaC)
-[![Patrick Collins YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/channel/UCn-3f8tw_E1jZvhuHatROwA)
-[![Patrick Collins Linkedin](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/patrickalphac/)
-[![Patrick Collins Medium](https://img.shields.io/badge/Medium-000000?style=for-the-badge&logo=medium&logoColor=white)](https://medium.com/@patrick.collins_58673/)
+- All wallets like Metamask expose a URL (RPC URL), which is a NODE/PROVIDER that allows to connect to the blockchain
+- to send a transaction we always absolutely need:
+  - a Provider / connection to the blockchain
+  - a Signer / wallet / someone with some gas
+  - a contract that we're interactiong with / ABI & Address. Open a second terminal, cd into hardhat-fund-me and run a local node using "yarn hardhat node". Grabbed the URL and added a localhost connection to Metamask (optional). In Metamask, imported an account using one of the local node Private keys (Account 3).
+
+- 

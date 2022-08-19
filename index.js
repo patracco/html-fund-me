@@ -1,3 +1,4 @@
+// require() doesn't work in frontend, only works in node js - https://docs.ethers.io/v5/getting-started/#importing
 import { ethers } from "./ethers-5.6.esm.min.js"
 import { abi, contractAddress } from "./constants.js"
 
@@ -29,7 +30,7 @@ async function withdraw() {
   console.log(`Withdrawing...`)
   if (typeof window.ethereum !== "undefined") {
     const provider = new ethers.providers.Web3Provider(window.ethereum)
-    await provider.send('eth_requestAccounts', [])
+    await provider.send("eth_requestAccounts", [])
     const signer = provider.getSigner()
     const contract = new ethers.Contract(contractAddress, abi, signer)
     try {
@@ -47,6 +48,7 @@ async function fund() {
   const ethAmount = document.getElementById("ethAmount").value
   console.log(`Funding with ${ethAmount}...`)
   if (typeof window.ethereum !== "undefined") {
+    // connecting to Ethereum: Metamask
     const provider = new ethers.providers.Web3Provider(window.ethereum)
     const signer = provider.getSigner()
     const contract = new ethers.Contract(contractAddress, abi, signer)
@@ -79,10 +81,14 @@ async function getBalance() {
 
 function listenForTransactionMine(transactionResponse, provider) {
   console.log(`Mining ${transactionResponse.hash}`)
+  // the following process must complete before continuing, so we wrap into a Promise
   return new Promise((resolve, reject) => {
+    // https://docs.ethers.io/v5/api/providers/provider/#Provider-once
+    // the provider gives us a transactionReceipt
+    // how to listen for events on the UI. We could have also used "await transactionResponse.wait(1)". See https://github.com/smartcontractkit/full-blockchain-solidity-course-js/discussions/366
     provider.once(transactionResponse.hash, (transactionReceipt) => {
       console.log(
-        `Completed with ${transactionReceipt.confirmations} confirmations. `
+        `Completed with ${transactionReceipt.confirmations} confirmation/s. `
       )
       resolve()
     })
